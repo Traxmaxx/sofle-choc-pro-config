@@ -110,7 +110,7 @@ void precalculate_all_led_colors(void) {
                 led_colors[_SYMBOL][i][1] = 0;
                 led_colors[_SYMBOL][i][2] = 0;
             }
-        } else if (i >= 29) {
+        } else {
             memcpy(led_colors[_SYMBOL][i], layer1_dim, 3);
         }
 
@@ -123,7 +123,7 @@ void precalculate_all_led_colors(void) {
                 led_colors[_NUMBER][i][1] = 0;
                 led_colors[_NUMBER][i][2] = 0;
             }
-        } else if (i >= 29) {
+        } else {
             memcpy(led_colors[_NUMBER][i], layer2_dim, 3);
         }
     }
