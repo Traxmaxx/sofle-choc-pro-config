@@ -6,10 +6,15 @@
  */
 enum layers {
     _BASE,
-    _SYMBOL,
-    _NUMBER,
-    // _UNUSED1,
-    // _UNUSED2,
+    _LAYER1,
+    _LAYER2,
+    _LAYER3,
+    _LAYER4,
+    _LAYER5,
+    _LAYER6,
+    _LAYER7,
+    _LAYER8,
+    _LAYER9
 };
 
 /**
@@ -18,42 +23,35 @@ enum layers {
  * This provides a basic keymap for Vial to use as a starting point.
  * The actual keymap will be loaded from vial.json.vil at runtime.
  */
+
+// Define a macro for empty layers to avoid repetition
+#define EMPTY_LAYER LAYOUT_split_4x6_5( \
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+                  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO \
+)
+
+// Your keymap definition
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_split_4x6_5(
+    // Base layer needs all keys defined!
+    [_BASE] = LAYOUT_split_4x6_5(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
-        KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE, KC_MPLY, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                          KC_LALT, KC_LGUI, MO(1),   KC_SPC,  KC_ENT,  KC_BSPC, MO(2),   KC_RGUI, KC_RALT, KC_RCTL
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+        KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,  KC_MPLY,KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                          KC_LGUI, KC_LALT, KC_LCTL, MO(_LAYER1), KC_SPC, KC_ENT, MO(_LAYER2), KC_RCTL, KC_RALT, KC_RGUI
     ),
-    [1] = LAYOUT_split_4x6_5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-    [2] = LAYOUT_split_4x6_5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-    // [3] = LAYOUT_split_4x6_5(
-    //     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    // ),
-    // [4] = LAYOUT_split_4x6_5(
-    //     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    // ),
+    [_LAYER1] = EMPTY_LAYER,
+    [_LAYER2] = EMPTY_LAYER,
+    [_LAYER3] = EMPTY_LAYER,
+    [_LAYER4] = EMPTY_LAYER,
+    [_LAYER5] = EMPTY_LAYER,
+    [_LAYER6] = EMPTY_LAYER,
+    [_LAYER7] = EMPTY_LAYER,
+    [_LAYER8] = EMPTY_LAYER,
+    [_LAYER9] = EMPTY_LAYER
 };
 
 /**
@@ -88,43 +86,49 @@ bool led_colors_initialized = false;
  * in each layer to improve performance during rendering.
  */
 void precalculate_all_led_colors(void) {
-    // Layer 1 colors (SYMBOL - Pink)
-    uint8_t layer1_full[3] = {LAYER1_RGB_R, LAYER1_RGB_G, LAYER1_RGB_B};
-    uint8_t layer1_dim[3] = {LAYER1_RGB_R/4, LAYER1_RGB_G/4, LAYER1_RGB_B/4};
+    // Get current RGB matrix brightness
+    uint8_t brightness = rgb_matrix_get_val();
+    float brightness_factor = (float)brightness / 255.0f;
 
-    // Layer 2 colors (NUMBER - Cyan)
-    uint8_t layer2_full[3] = {LAYER2_RGB_R, LAYER2_RGB_G, LAYER2_RGB_B};
-    uint8_t layer2_dim[3] = {LAYER2_RGB_R/4, LAYER2_RGB_G/4, LAYER2_RGB_B/4};
+    // Define RGB values for each layer
+    uint8_t layer_rgb[10][3] = {
+        {0, 0, 0},                  // _BASE - No specific color
+        {LAYER1_RGB_R, LAYER1_RGB_G, LAYER1_RGB_B},  // _LAYER1
+        {LAYER2_RGB_R, LAYER2_RGB_G, LAYER2_RGB_B},  // _LAYER2
+        {LAYER3_RGB_R, LAYER3_RGB_G, LAYER3_RGB_B},  // _LAYER3
+        {LAYER4_RGB_R, LAYER4_RGB_G, LAYER4_RGB_B},  // _LAYER4
+        {LAYER5_RGB_R, LAYER5_RGB_G, LAYER5_RGB_B},  // _LAYER5
+        {LAYER6_RGB_R, LAYER6_RGB_G, LAYER6_RGB_B},  // _LAYER6
+        {LAYER7_RGB_R, LAYER7_RGB_G, LAYER7_RGB_B},  // _LAYER7
+        {LAYER8_RGB_R, LAYER8_RGB_G, LAYER8_RGB_B},  // _LAYER8
+        {LAYER9_RGB_R, LAYER9_RGB_G, LAYER9_RGB_B},  // _LAYER9
+    };
 
     // Pre-calculate colors for each LED in each layer
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         int8_t row = led_to_matrix_row[i];
         int8_t col = led_to_matrix_col[i];
 
-        // Layer 1 (SYMBOL)
-        if (row >= 0 && col >= 0) {
-            if (led_is_mapped[i][_SYMBOL]) {
-                memcpy(led_colors[_SYMBOL][i], layer1_full, 3);
+        // Loop through all layers (skip _BASE layer if you don't need it)
+        for (uint8_t layer = _LAYER1; layer <= _LAYER8; layer++) {
+            if (row >= 0 && col >= 0) {
+                if (led_is_mapped[i][layer]) {
+                    // Full brightness for mapped keys
+                    led_colors[layer][i][0] = (uint8_t)(layer_rgb[layer][0] * brightness_factor);
+                    led_colors[layer][i][1] = (uint8_t)(layer_rgb[layer][1] * brightness_factor);
+                    led_colors[layer][i][2] = (uint8_t)(layer_rgb[layer][2] * brightness_factor);
+                } else {
+                    // Unmapped keys are turned off
+                    led_colors[layer][i][0] = 0;
+                    led_colors[layer][i][1] = 0;
+                    led_colors[layer][i][2] = 0;
+                }
             } else {
-                led_colors[_SYMBOL][i][0] = 0;
-                led_colors[_SYMBOL][i][1] = 0;
-                led_colors[_SYMBOL][i][2] = 0;
+                // Dim brightness for non-key LEDs (like underglow)
+                led_colors[layer][i][0] = (uint8_t)(layer_rgb[layer][0] * brightness_factor / 4);
+                led_colors[layer][i][1] = (uint8_t)(layer_rgb[layer][1] * brightness_factor / 4);
+                led_colors[layer][i][2] = (uint8_t)(layer_rgb[layer][2] * brightness_factor / 4);
             }
-        } else {
-            memcpy(led_colors[_SYMBOL][i], layer1_dim, 3);
-        }
-
-         // Layer 2 (NUMBER)
-        if (row >= 0 && col >= 0) {
-            if (led_is_mapped[i][_NUMBER]) {
-                memcpy(led_colors[_NUMBER][i], layer2_full, 3);
-            } else {
-                led_colors[_NUMBER][i][0] = 0;
-                led_colors[_NUMBER][i][1] = 0;
-                led_colors[_NUMBER][i][2] = 0;
-            }
-        } else {
-            memcpy(led_colors[_NUMBER][i], layer2_dim, 3);
         }
     }
 
@@ -155,7 +159,7 @@ void keyboard_post_init_user(void) {
     }
 
     // Pre-calculate mapped status and colors for each LED in each layer
-    for (uint8_t layer = 0; layer < 3; layer++) {
+    for (uint8_t layer = 0; layer < 9; layer++) {
         for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
             int8_t row = led_to_matrix_row[i];
             int8_t col = led_to_matrix_col[i];
@@ -184,8 +188,8 @@ void keyboard_post_init_user(void) {
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
 
-    // Only handle layers we care andknow about
-    if (layer != _SYMBOL && layer != _NUMBER) {
+    // Skip for base layer - use default RGB effects
+    if (layer == _BASE) {
         return false;
     }
 
@@ -216,7 +220,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
  * @return layer_state_t The processed layer state
  */
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgb_matrix_indicators();
+    // Force RGB matrix update
+    rgb_matrix_indicators_advanced_user(0, RGB_MATRIX_LED_COUNT - 1);
 
     return state;
 }

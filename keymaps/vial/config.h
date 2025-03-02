@@ -75,15 +75,40 @@
 #define LAYER2_RGB_G 255
 #define LAYER2_RGB_B 255
 
-// Layer 3 - Unused - Red (for visibility if accidentally activated)
-#define LAYER3_RGB_R 255
-#define LAYER3_RGB_G 0
+// Layer 3 - Green
+#define LAYER3_RGB_R 0
+#define LAYER3_RGB_G 255
 #define LAYER3_RGB_B 0
 
-// Layer 4 - Unused - Orange
+// Layer 4 - Orange
 #define LAYER4_RGB_R 255
 #define LAYER4_RGB_G 128
 #define LAYER4_RGB_B 0
+
+// Layer 5 - Purple
+#define LAYER5_RGB_R 128
+#define LAYER5_RGB_G 0
+#define LAYER5_RGB_B 255
+
+// Layer 6 - Yellow
+#define LAYER6_RGB_R 255
+#define LAYER6_RGB_G 255
+#define LAYER6_RGB_B 0
+
+// Layer 7 - Blue
+#define LAYER7_RGB_R 0
+#define LAYER7_RGB_G 0
+#define LAYER7_RGB_B 255
+
+// Layer 8 - Red
+#define LAYER8_RGB_R 255
+#define LAYER8_RGB_G 0
+#define LAYER8_RGB_B 0
+
+// Layer 9 - Teal (Turquoise)
+#define LAYER9_RGB_R 0
+#define LAYER9_RGB_G 128
+#define LAYER9_RGB_B 128
 
 // Maintain compatibility with the keyboard's RGB Matrix settings
 #define RGB_MATRIX_SLEEP
@@ -99,6 +124,5 @@
 #define RGB_MATRIX_DISABLE_KEYCODES
 
 // Layer-specific lighting configuration
-// Specifically targeting Layers 1 (Symbol) and 2 (Number)
 #define RGB_MATRIX_LAYER_INDICATORS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
