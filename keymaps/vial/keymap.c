@@ -141,14 +141,6 @@ void keyboard_post_init_user(void) {
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         led_to_matrix_row[i] = -1;
         led_to_matrix_col[i] = -1;
-
-        // Separate LEDs into left and right half arrays
-        // Assuming LEDs < 29 are left half, >= 29 are right half
-        if (i < 29) {
-            left_half_leds[left_count++] = i;
-        } else {
-            right_half_leds[right_count++] = i;
-        }
     }
 
     // Fill in the mapping
@@ -163,7 +155,7 @@ void keyboard_post_init_user(void) {
     }
 
     // Pre-calculate mapped status and colors for each LED in each layer
-    for (uint8_t layer = 0; layer < 16; layer++) {
+    for (uint8_t layer = 0; layer < 3; layer++) {
         for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
             int8_t row = led_to_matrix_row[i];
             int8_t col = led_to_matrix_col[i];
@@ -192,43 +184,25 @@ void keyboard_post_init_user(void) {
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
 
-    // Skip for base layer - use default RGB effects
-    if (layer == _BASE) {
-        return false;
-    }
-
-    // Only handle layers we know about
+    // Only handle layers we care andknow about
     if (layer != _SYMBOL && layer != _NUMBER) {
         return false;
     }
 
-    // Ensure colors are pre-calculated
-    if (!led_colors_initialized) {
-        precalculate_all_led_colors();
+    // Process all LEDs
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        rgb_matrix_set_color(i,
+                            led_colors[layer][i][0],
+                            led_colors[layer][i][1],
+                            led_colors[layer][i][2]);
     }
-
-    // Process left half first (always process all left LEDs)
-    for (uint8_t i = 0; i < left_count; i++) {
-        uint8_t led_idx = left_half_leds[i];
-        rgb_matrix_set_color(led_idx,
-                            led_colors[layer][led_idx][0],
-                            led_colors[layer][led_idx][1],
-                            led_colors[layer][led_idx][2]);
-    }
-
-    // Then process right half
-    for (uint8_t i = 0; i < right_count; i++) {
-        uint8_t led_idx = right_half_leds[i];
-
-        if (led_idx < led_min || led_idx >= led_max) {
-            continue;
-        }
-
-        rgb_matrix_set_color(led_idx,
-                            led_colors[layer][led_idx][0],
-                            led_colors[layer][led_idx][1],
-                            led_colors[layer][led_idx][2]);
-    }
+    // if there's too much leds and a noticable delay try loop unroll
+    // for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i += 4) {
+    //     rgb_matrix_set_color(i,   led_colors[layer][i][0],   led_colors[layer][i][1],   led_colors[layer][i][2]);
+    //     rgb_matrix_set_color(i+1, led_colors[layer][i+1][0], led_colors[layer][i+1][1], led_colors[layer][i+1][2]);
+    //     rgb_matrix_set_color(i+2, led_colors[layer][i+2][0], led_colors[layer][i+2][1], led_colors[layer][i+2][2]);
+    //     rgb_matrix_set_color(i+3, led_colors[layer][i+3][0], led_colors[layer][i+3][1], led_colors[layer][i+3][2]);
+    // }
 
     return false;
 }
@@ -243,27 +217,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
  */
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgb_matrix_indicators();
-    return state;
-}
 
-/**
- * @brief Custom keycode handler
- *
- * Provides special handling for certain keycodes like RGB_TOG.
- *
- * @param keycode The keycode to process
- * @param record Information about the key press/release
- * @return bool Whether the keycode was handled
- */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case RGB_TOG:
-            if (record->event.pressed) {
-                rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-                rgb_matrix_sethsv_noeeprom(HSV_OFF);
-            }
-            return true;
-        default:
-            return true;
-    }
+    return state;
 }
